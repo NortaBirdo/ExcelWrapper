@@ -43,7 +43,7 @@ begin
    xlsBooks.WorkBooks.Open(FileName);
    xlsBooks.Visible := Visible;
  except
-   ShowMessage('Не удалось открыть файл Excel.');
+   ShowMessage('Не надена рабочая копия Excel.');
  end;
 end;
 
@@ -54,7 +54,7 @@ begin
    xlsBooks.Workbooks.Add;
    xlsBooks.Visible := Visible;
  except
-   ShowMessage('Не удалось открыть файл Excel.');
+   ShowMessage('Не надена рабочая копия Excel.');
  end;
 end;
 
@@ -70,7 +70,17 @@ var
 begin
   result := TStringList.Create;
   for I := 1 to untilCol do
-    result.Add(ReadCell(ActiveBook, ActiveSheet, Row, I));
+    result.Add(ReadCell(Row, I));
+end;
+
+procedure TExcelReport.SetActiveBook(id: integer);
+begin
+  ActiveBook := id;
+end;
+
+procedure TExcelReport.SetActiveSheet(id: integer);
+begin
+  ActiveSheet := id;
 end;
 
 procedure TExcelReport.SetColumnWidth(width: integer; Col: string);
@@ -91,7 +101,7 @@ var
   i: integer;
 begin
   for I := 0 to Data.Count-1 do
-    WriteCell(ActiveBook, ActiveSheet, Row, i, Data.Strings[i]);
+    WriteCell(Row, i, Data.Strings[i]);
 end;
 
 end.
